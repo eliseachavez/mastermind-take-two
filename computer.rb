@@ -33,7 +33,8 @@ class Computer
   end
 
   def first_guess
-    @guess = make_code
+    random_index = rand(1295)
+    @guess= @possible_codes[random_index]
     @no_guesses_made = false
   end
 
