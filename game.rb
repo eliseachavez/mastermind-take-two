@@ -7,7 +7,7 @@ class Game
   include Display
   attr_reader :codemaker, :codebreaker, :board
 
-  def intialize
+  def initialize
     @codemaker = nil
     @codebreaker = nil
     @board = Board.new
@@ -23,6 +23,7 @@ class Game
       @turn += 1
       if @turn < 9
         guess = @codebreaker.guess
+        puts "#{@board}"
         @codebreaker.hint = @board.grade(@codemaker.original_code, guess)
         is_over?(hint)
       else
