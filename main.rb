@@ -9,6 +9,7 @@ def intro
   answer = gets.chomp
   if answer == 'y'
     game = Game.new
+    game.assign_roles
     game.play
   else
     puts "Goodbye."

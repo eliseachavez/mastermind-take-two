@@ -5,12 +5,23 @@ class Player
   include Display
 
   def initialize
-    @name = nil
+    @possible_codes = generate_possible_codes
+    @original_code = nil
+    @hint = nil
+  end
+
+  def generate_possible_codes
+    code_key = ["r","o","y","g","b","p"]
+    permutation = []
+    code_key.repeated_permutation(4) { |num| permutation.push(num) }
+    permutation
   end
 
   def make_code
-   code = ['r','g','b','p']
-   code
+   #type it in
+   #make sure it's in set of possible codes
+    @original_code = ['r','g','b','p']
+    @original_code
   end
 
   def guess

@@ -1,11 +1,11 @@
 class Board
-  def initialize(code)
+
+  def initialize
     @r_count = 0
     @w_count = 0
-    @original_code = code
   end
 
-  def grade(code=@original_code, guess)
+  def grade(code, guess)
     reset_hint
 
     code_color_count = generate_code_color_count(code)

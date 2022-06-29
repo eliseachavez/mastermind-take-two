@@ -5,27 +5,25 @@ require_relative 'display.rb'
 
 class Game
   include Display
+  attr_reader :codemaker, :codebreaker, :possible_codes, :board
 
   def intialize
     @codemaker = nil
     @codebreaker = nil
-    @possible_codes = generate_possible_codes
-    @board = nil
+    @board = Board.new
     @turn = 0
     @outcome = "#{@codebreaker} lost"
     @over = false
   end
 
   def play
-    @turn = 0
-    assign_roles
     setup
 
     until @over do
       @turn += 1
       if @turn < 9
         guess = @codebreaker.guess
-        hint = @board.grade(guess)
+        @codebreaker.set_hint = @board.grade(guess)
         is_over?(hint)
       else
         puts "All out of turns. The outcome of this game is: #{@outcome}"
@@ -36,15 +34,14 @@ class Game
   end
 
   def setup
+    @turn = 0
     # Make the code
     code = @codebreaker.make_code(@all_possible_codes)
-
-    # Initialize the board with that code
-    @board = Board.new(code)
   end
 
   def assign_roles
-    puts "Will computer or player be codemaker? Type c if computer or p if player. The other will become codebreaker."
+    puts "\nWill computer or player be codemaker? Type c if computer or p if player.\n"\
+    "The other will become codebreaker.\n"
     answer = gets.chomp
     if answer == 'c'
       @codemaker = Computer.new
@@ -53,13 +50,6 @@ class Game
       @codemaker = Player.new
       @codebreaker = Computer.new
     end
-  end
-
-  def generate_possible_codes
-    code_key = ["r","o","y","g","b","p"]
-    permutation = []
-    code_key.repeated_permutation(4) { |num| permutation.push(num) }
-    permutation
   end
 
   def is_over?(hint)
