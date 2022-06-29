@@ -1,11 +1,14 @@
 class Computer
   include Display
+  attr_reader :original_code
+  attr_writer :hint
 
   def initialize
     @possible_codes = generate_possible_codes
     @original_code = nil
     @hint = nil
     @guess = nil
+    @no_guesses_made = true
   end
 
   def generate_possible_codes
@@ -15,16 +18,15 @@ class Computer
     permutation
   end
 
-  def make_code(all_possible_codes)
+  def make_code
     random_index = rand(1295)
     @original_code = @possible_codes[random_index]
-    @original_code
   end
 
   def guess
-    if @turn == 1
+    if @no_guesses_made
       first_guess
-    elsif @turn > 1
+    else
       subsequent_guess_with_knuths
     end
     @guess
@@ -32,6 +34,7 @@ class Computer
 
   def first_guess
     @guess = make_code
+    @no_guesses_made = false
   end
 
   def random_guess
@@ -52,7 +55,7 @@ class Computer
         @possible_codes.reject!(iteration_code)
       end
     end
-    puts "new size of the set of possible codes is #{@possible_codes}\n"
+    puts "new size of the set of possible codes is #{@possible_codes.size}\n"
 
     # call random guess method once the set of possible codes has been whittled down
     random_guess

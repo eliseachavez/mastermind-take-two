@@ -5,7 +5,7 @@ require_relative 'display.rb'
 
 class Game
   include Display
-  attr_reader :codemaker, :codebreaker, :possible_codes, :board
+  attr_reader :codemaker, :codebreaker, :board
 
   def intialize
     @codemaker = nil
@@ -23,7 +23,7 @@ class Game
       @turn += 1
       if @turn < 9
         guess = @codebreaker.guess
-        @codebreaker.set_hint = @board.grade(guess)
+        @codebreaker.hint = @board.grade(@codemaker.original_code, guess)
         is_over?(hint)
       else
         puts "All out of turns. The outcome of this game is: #{@outcome}"
@@ -36,7 +36,7 @@ class Game
   def setup
     @turn = 0
     # Make the code
-    code = @codebreaker.make_code(@all_possible_codes)
+    @codemaker.make_code
   end
 
   def assign_roles

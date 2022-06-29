@@ -3,6 +3,8 @@ require_relative 'game.rb'
 
 class Player
   include Display
+  attr_reader :original_code
+  attr_writer :hint
 
   def initialize
     @possible_codes = generate_possible_codes
