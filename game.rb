@@ -22,10 +22,9 @@ class Game
     until @over do
       @turn += 1
       if @turn < 9
-        guess = @codebreaker.guess
-        puts "#{@board}"
+        guess = @codebreaker.make_guess
         @codebreaker.hint = @board.grade(@codemaker.original_code, guess)
-        is_over?(hint)
+        is_over?(@codebreaker.hint)
       else
         puts "All out of turns. The outcome of this game is: #{@outcome}"
         @over = true
@@ -35,7 +34,6 @@ class Game
   end
 
   def setup
-    @turn = 0
     # Make the code
     @codemaker.make_code
   end
@@ -56,6 +54,8 @@ class Game
   def is_over?(hint)
     if hint == [4,0]
       @over = true
+      @outcome = "#{@codebreaker} won!!!!"
+      puts "#{outcome}. The answer was guessed in #{@turn} turns."
     else
       @over = false
     end

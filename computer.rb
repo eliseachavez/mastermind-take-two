@@ -1,6 +1,6 @@
 class Computer
   include Display
-  attr_reader :original_code
+  attr_reader :original_code, :hint, :guess
   attr_writer :hint
 
   def initialize
@@ -23,7 +23,7 @@ class Computer
     @original_code = @possible_codes[random_index]
   end
 
-  def guess
+  def make_guess
     if @no_guesses_made
       first_guess
     else
@@ -45,16 +45,18 @@ class Computer
   end
 
   def subsequent_guess_with_knuths
-    # get the hint for the current guess
-    code_hint = grade(@original_code, @guess)
+    board = Board.new
 
     @possible_codes_iteration_set = @possible_codes.clone
 
     @possible_codes_iteration_set.each do |iteration_code|
-      guess_hint = grade(@guess, iteration_code)
-      if guess_hint != code_hint
-        @possible_codes.reject!(iteration_code)
+      guess_hint = board.grade(@guess, iteration_code)
+
+      if guess_hint != hint
+        @possible_codes.delete(iteration_code) # Leaves an empty array in that spot
+        @possible_codes.reject! { |c| c.empty? } # remove the empty slot
       end
+
     end
     puts "new size of the set of possible codes is #{@possible_codes.size}\n"
 

@@ -3,7 +3,8 @@ require_relative 'game.rb'
 
 class Player
   include Display
-  attr_reader :original_code
+
+  attr_reader :original_code, :hint, :guess
   attr_writer :hint
 
   def initialize
@@ -26,7 +27,7 @@ class Player
     @original_code
   end
 
-  def guess
+  def make_guess
     ['r','g','b','p']
   end
 
