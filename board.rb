@@ -19,7 +19,7 @@ class Board
   end
 
   def count_exact_matches(code, guess, code_color_count, guess_color_count)
-    # Count exact matches and give a red pin
+    # Count exact matches and give a red pin for @r_count
     # Once counted, remove them from color counts so they aren't counted again when counting for white pins
     code.each_index do |i|
       if code[i] == guess[i]

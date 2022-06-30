@@ -21,6 +21,7 @@ class Computer
   def make_code
     random_index = rand(1295)
     @original_code = @possible_codes[random_index]
+    print_computer_has_chosen
   end
 
   def make_guess
@@ -53,14 +54,12 @@ class Computer
       guess_hint = board.grade(@guess, iteration_code)
 
       if guess_hint != hint
-        @possible_codes.delete(iteration_code) # Leaves an empty array in that spot
-        @possible_codes.reject! { |c| c.empty? } # remove the empty slot
+        @possible_codes.delete(iteration_code)
+        @possible_codes.reject! { |c| c.empty? }
       end
 
     end
-    puts "new size of the set of possible codes is #{@possible_codes.size}\n"
 
-    # call random guess method once the set of possible codes has been whittled down
     random_guess
   end
 

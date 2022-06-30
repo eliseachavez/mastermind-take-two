@@ -11,6 +11,7 @@ class Player
     @possible_codes = generate_possible_codes
     @original_code = nil
     @hint = nil
+    @guess = nil
   end
 
   def generate_possible_codes
@@ -21,14 +22,38 @@ class Player
   end
 
   def make_code
-   #type it in
-   #make sure it's in set of possible codes
-    @original_code = ['r','g','b','p']
-    @original_code
+    print_make_code_prompt
+    ans = gets.chomp
+
+    if ans.length == 4 && has_correct_chars(ans)
+      @original_code = ans.chars
+    else
+      @original_code = nil
+      make_code
+    end
   end
 
   def make_guess
-    ['r','g','b','p']
+    print_make_guess_prompt
+    @guess = gets.chomp
+
+    if @guess.length == 4 && has_correct_chars(@guess)
+      @guess.chars
+    else
+      @guess = nil
+      make_guess
+    end
+  end
+
+  def has_correct_chars(code)
+    alphabet = ['r','o','y','g','b','p']
+    right_chars = true
+    code.each_char do |c|
+      unless alphabet.include?(c)
+        right_chars = false
+      end
+    end
+    right_chars
   end
 
 end

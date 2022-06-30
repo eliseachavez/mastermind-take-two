@@ -17,7 +17,7 @@ class Game
   end
 
   def play
-    setup
+    @codemaker.make_code
 
     until @over do
       @turn += 1
@@ -27,17 +27,11 @@ class Game
         @codebreaker.hint = @board.grade(@codemaker.original_code, guess)
         is_over?(@codebreaker.hint)
       else
-        puts "All out of turns. The outcome of this game is: #{@outcome}"
+        print_lose_statement
         @over = true
       end
     end
 
-  end
-
-  def setup
-    # Make the code
-    print_greeting
-    @codemaker.make_code
   end
 
   def assign_roles
