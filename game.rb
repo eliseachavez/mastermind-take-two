@@ -23,6 +23,7 @@ class Game
       @turn += 1
       if @turn < 9
         guess = @codebreaker.make_guess
+        print_guess(guess)
         @codebreaker.hint = @board.grade(@codemaker.original_code, guess)
         is_over?(@codebreaker.hint)
       else
@@ -35,12 +36,12 @@ class Game
 
   def setup
     # Make the code
+    print_greeting
     @codemaker.make_code
   end
 
   def assign_roles
-    puts "\nWill computer or player be codemaker? Type c if computer or p if player.\n"\
-    "The other will become codebreaker.\n"
+    print_assign_roles_prompt
     answer = gets.chomp
     if answer == 'c'
       @codemaker = Computer.new
@@ -54,8 +55,7 @@ class Game
   def is_over?(hint)
     if hint == [4,0]
       @over = true
-      @outcome = "#{@codebreaker} won!!!!"
-      puts "#{outcome}. The answer was guessed in #{@turn} turns."
+      print_win_statement(@turn)
     else
       @over = false
     end
