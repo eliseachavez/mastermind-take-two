@@ -23,8 +23,9 @@ module Display
   end
 
   def print_make_guess_prompt
-    puts "\nCodemaker, there are six possible colors and four colors in a code.\n"\
-    "Type r for red, o for orange, y for yellow, g for green, b for blue, and p for pink.\n\n"
+    puts "\nCodebreaker, there are six possible colors and four colors in a code.\n"\
+    "Type r for red, o for orange, y for yellow, g for green, b for blue, and p for pink.\n"\
+    "And example code is 'rgbp', red-green-blue-pink.\n\n"
   end
 
   def print_lose_statement
@@ -36,7 +37,7 @@ module Display
   end
 
   def print_computer_has_chosen
-    puts "\nComputer has created its code.\n"
+    puts "\nComputer has created a code.\n"
   end
 
 end
